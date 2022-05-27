@@ -51,6 +51,8 @@ function showWeather(response) {
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = response.data.wind.speed;
 
+  celsiusTemperature = Math.round(response.data.main.temp);
+
   let icon = document.querySelector("#weather-icon");
   icon.setAttribute(
     "src",
@@ -76,28 +78,32 @@ function searchCurrentLocation(event) {
 let currentLocationButton = document.querySelector("#location-button");
 currentLocationButton.addEventListener("click", searchCurrentLocation);
 
+function showFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".temperature");
+
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+
+  let fahrenheitTemperature = Math.round((celsiusTemperature * 9) / 5 + 32);
+  temperatureElement.innerHTML = fahrenheitTemperature;
+}
+
+let celsiusTemperature = null;
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", showFahrenheit);
+
+function showCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".temperature");
+
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+
+  temperatureElement.innerHTML = celsiusTemperature;
+}
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCelsius);
+
 searchCity("Mexico City");
-
-//function showFahrenheit(event) {
-//event.preventDefault();
-//let temperatureElement = document.querySelector(".temperature");
-//let temperature = temperatureElement.innerHTML;
-//temperatureElement.innerHTML = Math.round((temperature * 9) / 5 + 32);
-//}
-
-//let fahrenheit = document.querySelector("#fahrenheit-link");
-//fahrenheit.addEventListener("click", showFahrenheit);
-
-//function showCelsius(event) {
-//event.preventDefault();
-//let temperatureElement = document.querySelector(".temperature");
-//let temperature = temperatureElement.innerHTML;
-//temperatureElement.innerHTML = Math.round(((temperature - 32) * 5) / 9);
-//}
-//let celsius = document.querySelector("#celsius-link");
-//celsius.addEventListener("click", showCelsius);
-
-//When someone types the city and clicks Search, axios makes an API call for that place.
-//From the call, we can fetch temperature, description, wind, humidity, precipitation.
-//When we click CUrrent Location Button, an axios call is made to check the current location (longitude and latitude).
-//From that call, we can fetch temperature, description, wind humidity, precipitation.
