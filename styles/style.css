@@ -79,9 +79,9 @@ a.active {
 }
 
 .weather-icon {
-  width: 90px;
+  width: 100px;
   position: relative;
-  top: -20px;
+  top: -25px;
 }
 
 .temperature {
@@ -93,4 +93,15 @@ a.active {
 
 .weather-details {
   padding-top: 25px;
+}
+
+.forecast {
+  text-align-last: center;
+  font-family: sans-serif;
+  color: var(--primary-color);
+}
+
+#weekday,
+#weekday-temp {
+  font-weight: bold;
 }
