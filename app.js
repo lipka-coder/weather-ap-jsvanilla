@@ -51,10 +51,12 @@ function showWeather(response) {
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   document.querySelector("#wind").innerHTML = response.data.wind.speed;
 
-  //let icon = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
-  //icon = document.querySelector("#weather-icon").innerHTML;
-  //let icon = response.data.weather[0].icon;
-  //document.querySelector("#weather-icon").innerHTML = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+  let icon = document.querySelector("#weather-icon");
+  icon.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  icon.setAttribute("alt", response.data.weather[0].description);
 }
 
 function handlePosition(position) {
