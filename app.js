@@ -148,7 +148,6 @@ function displayForecast(forecasts) {
   let forecast = forecasts.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
   let forecastHTML = ``;
-  console.log(forecasts.data.daily);
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
       forecastHTML =
