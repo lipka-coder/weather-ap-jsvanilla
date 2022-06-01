@@ -147,9 +147,8 @@ function getForecastDate(timestamp) {
 function displayForecast(forecasts) {
   let forecast = forecasts.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
-  console.log(forecasts.data.daily);
   let forecastHTML = ``;
-
+  console.log(forecasts.data.daily);
   forecast.forEach(function (forecastDay, index) {
     if (index < 6) {
       forecastHTML =
@@ -162,7 +161,9 @@ function displayForecast(forecasts) {
        <p class="mb-0" id="week-date">
          ${getForecastDate(forecastDay.dt)}
        </p>
-       <img src="cloudy_s_rain.png" id="weekday-weather-icon" />
+       <img src="https://openweathermap.org/img/wn/${
+         forecastDay.weather[0].icon
+       }@2x.png" id="weekday-weather-icon" width="66" />
        <p>
          <span id="weekday-temp">${Math.round(forecastDay.temp.max)}°C</span>
          <span id="weekday-temp-min"> ${Math.round(
