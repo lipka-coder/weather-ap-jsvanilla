@@ -118,7 +118,7 @@ function displayForecast() {
       `
      <div class="col-2 forecast">
        <p class="mb-0" id="weekday">
-         Tue
+         ${day}
        </p>
        <p class="mb-0" id="week-date">
          May 27
