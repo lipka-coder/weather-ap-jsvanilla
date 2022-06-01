@@ -64,7 +64,6 @@ function showWeather(response) {
 
 function getForecast(coordinates) {
   let apiKey = "08c89d7c2dd394c882a212087337db19";
-  console.log(coordinates.lon);
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&&units=metric`;
 
   axios.get(apiUrl).then(displayForecast);
@@ -115,30 +114,63 @@ function showCelsius(event) {
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
-function displayForecast(forecast) {
-  console.log(forecast.data.daily);
-  let forecastElement = document.querySelector("#weather-forecast");
+function getForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  let day = days[date.getDay()];
 
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return day;
+}
+
+function getForecastDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  let month = months[date.getMonth()];
+  let weekday = date.getDate();
+
+  return `${month} ${weekday}`;
+}
+
+function displayForecast(forecasts) {
+  let forecast = forecasts.data.daily;
+  let forecastElement = document.querySelector("#weather-forecast");
+  console.log(forecasts.data.daily);
   let forecastHTML = ``;
 
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
      <div class="col-2 forecast">
        <p class="mb-0" id="weekday">
-         ${day}
+         ${getForecastDay(forecastDay.dt)}
        </p>
        <p class="mb-0" id="week-date">
-         May 27
+         ${getForecastDate(forecastDay.dt)}
        </p>
        <img src="cloudy_s_rain.png" id="weekday-weather-icon" />
        <p>
-         <span id="weekday-temp">25°C</span>
-         <span id="weekday-temp-min"> 17°C</span>
+         <span id="weekday-temp">${Math.round(forecastDay.temp.max)}°C</span>
+         <span id="weekday-temp-min"> ${Math.round(
+           forecastDay.temp.min
+         )}°C</span>
        </p>
      </div>`;
+    }
   });
   forecastElement.innerHTML = forecastHTML;
 }
