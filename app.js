@@ -106,4 +106,32 @@ function showCelsius(event) {
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", showCelsius);
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let forecastHTML = ``;
+
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+     <div class="col-2 forecast">
+       <p class="mb-0" id="weekday">
+         Tue
+       </p>
+       <p class="mb-0" id="week-date">
+         May 27
+       </p>
+       <img src="cloudy_s_rain.png" id="weekday-weather-icon" />
+       <p>
+         <span id="weekday-temp">25°C</span>
+         <span id="weekday-temp-min"> 17°C</span>
+       </p>
+     </div>`;
+  });
+  forecastElement.innerHTML = forecastHTML;
+}
+
 searchCity("Mexico City");
+displayForecast();
